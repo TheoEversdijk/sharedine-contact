@@ -1,12 +1,11 @@
-import { MongoClient } from "mongodb";
 import express from "express"
 import dotenv from "dotenv"
 import cors from "cors";
-import EXAMPLEROUTER from "./routes/users.js";
-dotenv.config()
+import friendsRouter from "./routes/friends.js";
+dotenv.config({path: '.env'})
 
 const domainsFromEnv = process.env.CORS_DOMAINS || ""
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 3003
 
 const whitelist = domainsFromEnv.split(",").map(item => item.trim())
 
@@ -24,13 +23,11 @@ const corsOptions = {
 const app = express();
 
 
-app.use(cors(corsOptions))
+app.use(cors("Access-Control-Allow-Origin: *"))
 
-app.get('/', (req, res) => res.status(200).send())
+app.get('/', (req, res) => res.status(200).send("ShareDine FriendsAPI"))
 
-app.use("/users", EXAMPLEROUTER)
+app.use("/friends", cors(), friendsRouter)
 
-app.listen(port, () => {
-    console.log(`Listening on ${port}`)
-})
+app.listen(3003) // verander de port als dit al in gebruik is
 
