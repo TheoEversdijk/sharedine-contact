@@ -1,7 +1,7 @@
 import express from "express"
 import dotenv from "dotenv"
 import cors from "cors";
-import friendsRouter from "./routes/friends.js";
+import friendRouter from "./routes/friendRoute.js";
 dotenv.config({path: '.env'})
 
 const domainsFromEnv = process.env.CORS_DOMAINS || ""
@@ -27,7 +27,7 @@ app.use(cors("Access-Control-Allow-Origin: *"))
 
 app.get('/', (req, res) => res.status(200).send("ShareDine FriendsAPI"))
 
-app.use("/friends", cors(), friendsRouter)
+app.use("/friends", cors(), friendRouter)
 
 app.listen(3003) // verander de port als dit al in gebruik is
 

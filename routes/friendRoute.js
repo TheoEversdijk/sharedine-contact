@@ -5,6 +5,7 @@ dotenv.config();
 const router = express.Router();
 
 // import from controller
+import { getFriends } from "../controllers/friendController.js"
 
 /**
  * all friends router
@@ -21,6 +22,7 @@ const router = express.Router();
     res.sendStatus(200);
   });
 
+router.get('/', getFriends);
 
   // add friends route ?
   // show friends route ?
