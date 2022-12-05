@@ -40,7 +40,7 @@ export async function getFriendData(from) {
 
 /**
  * 
- * @param
+ * @param {id} from The user ID
  * @returns
  */
 export async function editFriend(id, friend) {
@@ -59,7 +59,7 @@ export async function editFriend(id, friend) {
 
 // Remove Friend Data
 export async function removeFriend(from) {
-    const { data, error } = await supabase.from('friends').delete().eq('id', id);
+    const { data, error } = await supabase.from('friends').delete().eq('from', from);
     if (error) console.log('Query error', error);
     else return data;
 
