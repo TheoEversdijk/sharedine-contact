@@ -2,7 +2,7 @@ import { getFriendsData, getFriendData, addFriendData, editFriend, removeFriend 
 
 export async function getFriends(req, res) {
     const friends = {};
-    const friendsData = await getFriendsData();
+    const friendsData = await getFriendsData(req.params.id);
     console.log(friendsData);
     if (friendsData.length > 0) {
         friends.meta = {
@@ -31,36 +31,36 @@ export async function getFriends(req, res) {
 
 // get individual user
 export async function getFriend(req, res) {
-const user = await getFriendData(req.params.id)
-if (friends.length > 0) {
-    const response = {};
-    response.meta = {
-        title: 'individual friends',
-        url: `${req.originalURL}`
+    const user = await getFriendData(req.params.id)
+    if (friends.length > 0) {
+        const response = {};
+        response.meta = {
+            title: 'individual friends',
+            url: `${req.originalURL}`
+        }
+        response.data = friends[0];
+        res.json(response);
+    } else {
+        res.status(500).json({ message: 'I cannot find your friend' });
     }
-    response.data = friends[0];
-    res.json(response);
-} else {
-    res.status(500).json({ message: 'I cannot find your friend'});
-}
 }
 
 
-// add new friend
-export async function addNewFriend(req, res) {
+// // add new friend
+// export async function addNewFriend(req, res) {
 
-}
+// }
 
-// edit / update friend
-export async function editFriend(req, res) {
+// // edit / update friend
+// export async function editFriend(req, res) {
 
-}
+// }
 
-// remove friend
-export async function removeFriend(req, res) {
+// // remove friend
+// export async function removeFriend(req, res) {
 
-}
+// }
 
-// get friend request
+// // get friend request
 
 

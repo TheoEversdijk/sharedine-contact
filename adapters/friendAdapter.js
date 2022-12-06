@@ -32,7 +32,7 @@ export async function addFriendData(friend) {
  * @param {*} from The user ID
  * @returns All friend relations from the specified userID
  */
-export async function getFriendData(from) {
+export async function getFriendData(id) {
     const { data, error } = await supabase.from('friends').select('*').eq('id', id);
     if (error) console.log('Query error', error);
     else return data;

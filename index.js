@@ -1,7 +1,7 @@
 import express from "express"
 import dotenv from "dotenv"
 import cors from "cors";
-import friendRouter from "./routes/friendRoute.js";
+import friendRouter from "./routes/friendRouter.js";
 dotenv.config({path: '.env'})
 
 const domainsFromEnv = process.env.CORS_DOMAINS || ""

@@ -2,7 +2,7 @@
 // send friend request
 export async function request(req, res, ) { // from, to
     // check if they are friends
-
+    
 
     // add friend request
 
