@@ -1,2 +1,2 @@
-# sharedine-contact
+# sharedine-friends
 Friends microservice for ShareDine.
