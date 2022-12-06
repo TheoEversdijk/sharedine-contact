@@ -6,6 +6,7 @@ const router = express.Router();
 
 // import from controller
 import { getFriends } from "../controllers/friendController.js"
+import { friendRequest } from "../controllers/requestController.js"
 
 /**
  * all friends router
@@ -23,6 +24,7 @@ import { getFriends } from "../controllers/friendController.js"
   });
 
 router.get('/', getFriends);
+router.post('/', friendRequest);
 
   // add friends route ?
   // show friends route ?

@@ -46,7 +46,7 @@ export async function getFriend(req, res) {
 }
 
 
-// // add new friend
+// add new friend
 // export async function addNewFriend(req, res) {
 
 // }

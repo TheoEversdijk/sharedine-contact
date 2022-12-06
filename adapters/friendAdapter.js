@@ -65,6 +65,17 @@ export async function removeFriend(from) {
 
 }
 
+export async function writeFriendRequest(friendRequest) {
+    const { data, error } = await supabase.from('friends').insert([
+        {
+            from: friendRequest.from,
+            to: friendRequest.to,
+            status: friendRequest.status
+        },
+    ]);
+    if (error) console.log('Query error', error);
+    else return data;
+}
 
 // from, to, status
 
