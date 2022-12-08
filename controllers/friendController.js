@@ -2,7 +2,7 @@ import { getFriendsData, getFriendData, addFriendData, editFriend, removeFriend 
 
 export async function getFriends(req, res) {
     const friends = {};
-    const friendsData = await getFriendsData(req.params.id);
+    const friendsData = await getFriendsData();
     console.log(friendsData);
     if (friendsData.length > 0) {
         friends.meta = {

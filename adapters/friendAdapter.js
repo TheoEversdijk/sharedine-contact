@@ -77,6 +77,16 @@ export async function writeFriendRequest(friendRequest) {
     else return data;
 }
 
+export async function acceptFriendRequest(id) {
+    const { data, error } = await supabase.from('friends').update(
+        {
+            status: "Friends"
+        },
+    ).eq("id", id);
+    if (error) console.log('Query error', error);
+    else return data;
+}
+
 // from, to, status
 
 // 1, 2, B
