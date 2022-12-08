@@ -87,6 +87,12 @@ export async function acceptFriendRequest(id) {
     else return data;
 }
 
+export async function declineFriendRequest(id) {
+    const { data, error } = await supabase.from('friends').delete().eq("id", id);
+    if (error) console.log('Query error', error);
+    else return data;
+}
+
 // from, to, status
 
 // 1, 2, B

@@ -13,6 +13,7 @@ export async function getFriends(req, res) {
         friendsData.map((friend) => {
             friends.data.push({
                 url_to_self: `${req.originalUrl}/${friend.id}`,
+                id: friend.id,
                 from: friend.from,
                 to: friend.to,
                 status: friend.status,

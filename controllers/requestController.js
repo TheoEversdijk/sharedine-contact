@@ -1,4 +1,4 @@
-import { writeFriendRequest, acceptFriendRequest } from "../adapters/friendAdapter.js"
+import { writeFriendRequest, acceptFriendRequest, declineFriendRequest } from "../adapters/friendAdapter.js"
 
 // send friend request
 export async function friendRequest(req, res) { // from, to
@@ -29,11 +29,22 @@ export async function friendRequest(req, res) { // from, to
           message: `Database Error`,
         });
       }
-
+    }
     // add recipocal relationship
 
     // cancel friend request
-
+    export async function declineRequest(req, res) { // from, to
+      if (req.query.id) {
+        await declineFriendRequest(req.query.id);
+      } else {
+        console.log(req.query.id);
+        res.status(422);
+        res.json({
+          title: 'Could not decline friend request',
+          message: `Database Error`,
+        });
+      }
+    }
     // unfriend
 
     // block & unblock
@@ -41,4 +52,3 @@ export async function friendRequest(req, res) { // from, to
     // unblock
 
     // done
-}
