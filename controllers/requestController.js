@@ -1,4 +1,4 @@
-import { writeFriendRequest, acceptFriendRequest, declineFriendRequest } from "../adapters/friendAdapter.js"
+import { writeFriendRequest, acceptFriendRequest, declineFriendRequest, blockFriendRequest } from "../adapters/friendAdapter.js"
 
 // send friend request
 export async function friendRequest(req, res) { // from, to
@@ -47,7 +47,19 @@ export async function friendRequest(req, res) { // from, to
     }
     // unfriend
 
-    // block & unblock
+    // block
+    export async function blockRequest(req, res) {
+      if (req.query.id) {
+        await blockFriendRequest(req.query.id);
+      } else {
+        console.log(req.query.id);
+        res.status(422);
+        res.json({
+          title: 'Could not block this user',
+          message: 'Database Error',
+        });
+      }
+    }
 
     // unblock
 
