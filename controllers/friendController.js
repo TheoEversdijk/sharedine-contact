@@ -1,8 +1,8 @@
 import { getFriendsData, getFriendData, addFriendData, editFriend, removeFriend } from "../adapters/friendAdapter.js"
 
-export async function getFriends(req, res) {
+export async function getFriendsList(req, res) {
     const friends = {};
-    const friendsData = await getFriendsData();
+    const friendsData = await getFriendsData(req.params.id);
     console.log(friendsData);
     if (friendsData.length > 0) {
         friends.meta = {
@@ -22,10 +22,9 @@ export async function getFriends(req, res) {
         });
         res.json(friends);
     } else {
-        res.status(500);
         res.json({
-            title: 'No friends lmao',
-            message: 'Touch grass bozo'
+            message: 'No friend found',
+            data: 0
         });
     }
 };

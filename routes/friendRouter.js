@@ -1,12 +1,13 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
 dotenv.config();
 
 const router = express.Router();
 
 // import from controller
-import { getFriends } from "../controllers/friendController.js"
-import { friendRequest, acceptRequest, declineRequest, blockRequest } from "../controllers/requestController.js"
+import { getFriendsList } from "../controllers/friendController.js"
+import { friendRequest, acceptRequest, declineRequest, blockRequest, requestList } from "../controllers/requestController.js"
 
 /**
  * all friends router
@@ -23,11 +24,14 @@ import { friendRequest, acceptRequest, declineRequest, blockRequest } from "../c
     res.sendStatus(200);
   });
 
-router.get('/', getFriends);
-router.post('/', friendRequest);
-router.put('/', acceptRequest);
-router.put('/block', blockRequest)
-router.delete('/', declineRequest);
+  const jsonParser = bodyParser.json()
+
+router.get('/:id', jsonParser, getFriendsList);
+router.get('/requests/:id', jsonParser, requestList);
+router.post('/request', jsonParser, friendRequest);
+router.put('/request', jsonParser, acceptRequest);
+router.put('/request/block', jsonParser, blockRequest)
+router.delete('/request', jsonParser, declineRequest);
 
   // add friends route ?
   // show friends route ?

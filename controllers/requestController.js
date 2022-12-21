@@ -1,4 +1,33 @@
-import { writeFriendRequest, acceptFriendRequest, declineFriendRequest, blockFriendRequest } from "../adapters/friendAdapter.js"
+import { writeFriendRequest, acceptFriendRequest, declineFriendRequest, blockFriendRequest, getRequests } from "../adapters/friendAdapter.js"
+
+export async function requestList(req, res) {
+  const requests = {};
+  const data = await getRequests(req.params.id);
+  console.log(data);
+  if (data.length > 0) {
+      requests.meta = {
+          title: 'All requests',
+          url: req.originalUrl,
+      };
+      requests.data = [];
+      requests.map((friend) => {
+          requests.data.push({
+              url_to_self: `${req.originalUrl}/${friend.id}`,
+              id: friend.id,
+              from: friend.from,
+              to: friend.to,
+              status: friend.status,
+              since: friend.since
+          });
+      });
+      res.json(requests);
+  } else {
+      res.json({
+          message: 'No request found',
+          data: 0
+      });
+  }
+}
 
 // send friend request
 export async function friendRequest(req, res) { // from, to
@@ -6,7 +35,7 @@ export async function friendRequest(req, res) { // from, to
     if (req.query.from && req.query.to) {
       friendRequest.from = req.query.from;
       friendRequest.to = req.query.to;
-      friendRequest.status = "Pending";
+      friendRequest.status = "pending";
       await writeFriendRequest(friendRequest)
     } else {
       res.status(422);

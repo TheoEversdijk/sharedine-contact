@@ -7,8 +7,8 @@ console.log('url', process.env.SUPABASE_URL);
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
 
 // Get Full Friends Table
-export async function getFriendsData() {
-    const { data, error } = await supabase.from('friends').select('*');
+export async function getFriendsData(id) {
+    const { data, error } = await supabase.from('friends').select('*').eq('status', 'friends').or(`from.eq.${id}, to.eq.${id}`);
     if (error) console.log('Query error', error);
     else return data;
 }
@@ -65,6 +65,13 @@ export async function removeFriend(from) {
 
 }
 
+// Get Full Friends Table
+export async function getRequests(id) {
+    const { data, error } = await supabase.from('friends').select('*').eq('status', 'pending').or(`from.eq.${id}, to.eq.${id}`);
+    if (error) console.log('Query error', error);
+    else return data;
+}
+
 export async function writeFriendRequest(friendRequest) {
     const { data, error } = await supabase.from('friends').insert([
         {
@@ -80,7 +87,7 @@ export async function writeFriendRequest(friendRequest) {
 export async function acceptFriendRequest(id) {
     const { data, error } = await supabase.from('friends').update(
         {
-            status: "Friends"
+            status: "friends"
         },
     ).eq("id", id);
     if (error) console.log('Query error', error);
