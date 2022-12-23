@@ -27,9 +27,9 @@ import { friendRequest, acceptRequest, declineRequest, blockRequest, requestList
   const jsonParser = bodyParser.json()
 
 router.get('/:id', jsonParser, getFriendsList);
-router.get('/requests/:id', jsonParser, requestList);
 router.post('/request', jsonParser, friendRequest);
 router.put('/request', jsonParser, acceptRequest);
+router.get('/requests/:id', jsonParser, requestList);
 router.put('/request/block', jsonParser, blockRequest)
 router.delete('/request', jsonParser, declineRequest);
 

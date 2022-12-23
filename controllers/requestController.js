@@ -2,15 +2,15 @@ import { writeFriendRequest, acceptFriendRequest, declineFriendRequest, blockFri
 
 export async function requestList(req, res) {
   const requests = {};
-  const data = await getRequests(req.params.id);
-  console.log(data);
-  if (data.length > 0) {
+  const requestsData = await getRequests(req.params.id);
+  console.log(requestsData);
+  if (requestsData.length > 0) {
       requests.meta = {
           title: 'All requests',
           url: req.originalUrl,
       };
       requests.data = [];
-      requests.map((friend) => {
+      requestsData.map((friend) => {
           requests.data.push({
               url_to_self: `${req.originalUrl}/${friend.id}`,
               id: friend.id,
@@ -32,9 +32,9 @@ export async function requestList(req, res) {
 // send friend request
 export async function friendRequest(req, res) { // from, to
     const friendRequest = {};
-    if (req.query.from && req.query.to) {
-      friendRequest.from = req.query.from;
-      friendRequest.to = req.query.to;
+    if (req.body.from && req.body.to) {
+      friendRequest.from = req.body.from;
+      friendRequest.to = req.body.to;
       friendRequest.status = "pending";
       await writeFriendRequest(friendRequest)
     } else {
@@ -48,10 +48,10 @@ export async function friendRequest(req, res) { // from, to
 
     // accept friend request
     export async function acceptRequest(req, res) { // from, to
-      if (req.query.id) {
-        await acceptFriendRequest(req.query.id);
+      if (req.body.id) {
+        await acceptFriendRequest(req.body.id);
       } else {
-        console.log(req.query.id);
+        console.log(req.body.id);
         res.status(422);
         res.json({
           title: 'Accept friend request',
@@ -63,10 +63,10 @@ export async function friendRequest(req, res) { // from, to
 
     // cancel friend request
     export async function declineRequest(req, res) { // from, to
-      if (req.query.id) {
-        await declineFriendRequest(req.query.id);
+      if (req.body.id) {
+        await declineFriendRequest(req.body.id);
       } else {
-        console.log(req.query.id);
+        console.log(req.body.id);
         res.status(422);
         res.json({
           title: 'Could not decline friend request',
@@ -78,10 +78,10 @@ export async function friendRequest(req, res) { // from, to
 
     // block
     export async function blockRequest(req, res) {
-      if (req.query.id) {
-        await blockFriendRequest(req.query.id);
+      if (req.body.id) {
+        await blockFriendRequest(req.body.id);
       } else {
-        console.log(req.query.id);
+        console.log(req.body.id);
         res.status(422);
         res.json({
           title: 'Could not block this user',
