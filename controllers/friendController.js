@@ -30,20 +30,20 @@ export async function getFriendsList(req, res) {
 };
 
 // get individual user
-export async function getFriend(req, res) {
-    const user = await getFriendData(req.params.id)
-    if (friends.length > 0) {
-        const response = {};
-        response.meta = {
-            title: 'individual friends',
-            url: `${req.originalURL}`
-        }
-        response.data = friends[0];
-        res.json(response);
-    } else {
-        res.status(500).json({ message: 'I cannot find your friend' });
-    }
-}
+// export async function getFriend(req, res) {
+//     const user = await getFriendData(req.params.id)
+//     if (friends.length > 0) {
+//         const response = {};
+//         response.meta = {
+//             title: 'individual friends',
+//             url: `${req.originalURL}`
+//         }
+//         response.data = friends[0];
+//         res.json(response);
+//     } else {
+//         res.status(500).json({ message: 'I cannot find your friend' });
+//     }
+// }
 
 
 // add new friend
